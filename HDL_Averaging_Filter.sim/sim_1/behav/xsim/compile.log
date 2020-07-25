@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/sources_1/imports/new/ram_input_mux.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ram_input_mux'
+INFO: [VRFC 10-163] Analyzing VHDL file "E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/sim_1/imports/new/ram_input_mux_test.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'ram_input_mux_test'

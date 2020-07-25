@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../HDL_Averaging_Filter.srcs/sources_1/imports/new/padding_unit.vhd" \
+"../../../../HDL_Averaging_Filter.srcs/sim_1/imports/new/padding_unit_w_in_mem.vhd" \
+
+# Do not sort compile order
+nosort

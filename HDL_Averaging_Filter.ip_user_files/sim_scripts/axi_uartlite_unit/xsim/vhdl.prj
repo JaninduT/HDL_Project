@@ -1,0 +1,4 @@
+vhdl xil_defaultlib  \
+"../../../../HDL_Averaging_Filter.srcs/sources_1/ip/axi_uartlite_unit/sim/axi_uartlite_unit.vhd" \
+
+nosort

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1595688852">
+  <File Type="PA-TCL" Name="image_filter.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="image_filter_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="image_filter_reports.tcl"/>
+  <File Type="RDS-RDS" Name="image_filter.vds"/>
+  <File Type="RDS-UTIL" Name="image_filter_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="image_filter_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="image_filter.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="image_filter_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="image_filter_timing_summary_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/ip/axi_uartlite_unit/axi_uartlite_unit.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/padded_image_ram/padded_image_ram.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/input_output_ram/input_output_ram.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/Convolve.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/Convolve.vhd"/>
+        <Attr Name="ImportTime" Val="1595680610"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/control_unit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/control_unit.vhd"/>
+        <Attr Name="ImportTime" Val="1595663491"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/padding_unit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/padding_unit.vhd"/>
+        <Attr Name="ImportTime" Val="1595661367"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/ram_input_mux.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/ram_input_mux.vhd"/>
+        <Attr Name="ImportTime" Val="1595491969"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/uart_comm_unit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/uart_comm_unit.vhd"/>
+        <Attr Name="ImportTime" Val="1595679029"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/image_filter.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../Image_Filter_myrepo/Image_FIlter/Image_FIlter.srcs/sources_1/new/image_filter.vhd"/>
+        <Attr Name="ImportTime" Val="1595678630"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/input_output_ram/input_output_ram_data.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/ip/padded_image_ram/padded_image_data.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="image_filter"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>

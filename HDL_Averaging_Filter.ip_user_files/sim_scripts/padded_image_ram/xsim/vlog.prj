@@ -1,0 +1,6 @@
+verilog xil_defaultlib  \
+"../../../../HDL_Averaging_Filter.srcs/sources_1/ip/padded_image_ram/sim/padded_image_ram.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort
