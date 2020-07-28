@@ -8,14 +8,14 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
+-- Description: This module handles communication with an external
+-- computer by manipulating AXI UART Lite communication unit and I/O RAM.
 -- 
 -- Dependencies: 
 -- 
 -- Revision:
 -- Revision 0.01 - File Created
--- Additional Comments:
--- 
+-- Additional Comments: 
 ----------------------------------------------------------------------------------
 
 
@@ -25,60 +25,60 @@ use IEEE.NUMERIC_STD.ALL;
 
 
 entity uart_comm_unit is
-    Generic (mem_addr_size_g : integer := 10; --holds memory address length.
+    Generic (mem_addr_size_g   : integer := 10; --holds memory address length.
              pixel_data_size_g : integer := 8; --holds pixel data bit length.
-             base_val_g : integer := 0);--holds basic initialization value(0).
+             base_val_g        : integer := 0);--holds basic initialization value(0).
 
-    Port ( clk : in STD_LOGIC;
-           rst_n : in STD_LOGIC;
+    Port ( clk                    : in STD_LOGIC;
+           rst_n                  : in STD_LOGIC;
            --oignal to start the communication process.
-           start_op_in : in STD_LOGIC;
+           start_op_in            : in STD_LOGIC;
            --outputs finish signal of the communication process.
-           finished_op_out : out STD_LOGIC := '0';
+           finished_op_out        : out STD_LOGIC := '0';
            --select the operation of the process (send/receive).
-           send_rec_select_in : in STD_LOGIC;
+           send_rec_select_in     : in STD_LOGIC;
            --address for input/output ram
-           ioi_addra_out : out STD_LOGIC_VECTOR (mem_addr_size_g -1 downto 0) := std_logic_vector(to_unsigned(base_val_g, mem_addr_size_g));
+           ioi_addra_out          : out STD_LOGIC_VECTOR (mem_addr_size_g -1 downto 0) := std_logic_vector(to_unsigned(base_val_g, mem_addr_size_g));
            --data in bus for input/output ram.
-           ioi_dina_out : out STD_LOGIC_VECTOR (pixel_data_size_g -1 downto 0) := std_logic_vector(to_unsigned(base_val_g, pixel_data_size_g));
+           ioi_dina_out           : out STD_LOGIC_VECTOR (pixel_data_size_g -1 downto 0) := std_logic_vector(to_unsigned(base_val_g, pixel_data_size_g));
            --data out bus from input/output ram.
-           ioi_douta_in : in STD_LOGIC_VECTOR (pixel_data_size_g -1 downto 0);
+           ioi_douta_in           : in STD_LOGIC_VECTOR (pixel_data_size_g -1 downto 0);
            --write enable signal for input/output ram
-           ioi_wea_out : out STD_LOGIC_VECTOR (0 downto 0) := "0";
+           ioi_wea_out            : out STD_LOGIC_VECTOR (0 downto 0) := "0";
            --interrupt signal from axi uartlite communication unit.
-           uart_interrupt_in : in STD_LOGIC;
+           uart_interrupt_in      : in STD_LOGIC;
            --write address to axi uartlite communication unit.
-           uart_s_axi_awaddr_out : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0000";
+           uart_s_axi_awaddr_out  : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0000";
            --write address valid signal to axi uartlite communication unit.
            uart_s_axi_awvalid_out : out STD_LOGIC := '0';
            --write address ready signal from axi uartlite communication unit.
-           uart_s_axi_awready_in : in STD_LOGIC;
+           uart_s_axi_awready_in  : in STD_LOGIC;
            --write data to axi uartlite communication unit.
-           uart_s_axi_wdata_out : out STD_LOGIC_VECTOR(31 DOWNTO 0) := std_logic_vector(to_unsigned(base_val_g, 32));
+           uart_s_axi_wdata_out   : out STD_LOGIC_VECTOR(31 DOWNTO 0) := std_logic_vector(to_unsigned(base_val_g, 32));
            ----write strobe selection to axi uartlite communication unit.
-           uart_s_axi_wstrb_out : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0001";
+           uart_s_axi_wstrb_out   : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0001";
            --write data valid signal to axi uartlite communication unit.
-           uart_s_axi_wvalid_out : out STD_LOGIC := '0';
+           uart_s_axi_wvalid_out  : out STD_LOGIC := '0';
            --write data ready signal from axi uartlite communication unit.
-           uart_s_axi_wready_in : in STD_LOGIC;
+           uart_s_axi_wready_in   : in STD_LOGIC;
            --write response from axi uartlite communication unit.
-           uart_s_axi_bresp_in : in STD_LOGIC_VECTOR(1 DOWNTO 0);
+           uart_s_axi_bresp_in    : in STD_LOGIC_VECTOR(1 DOWNTO 0);
            --write reponse valid signal from axi uartlite communication unit.
-           uart_s_axi_bvalid_in : in STD_LOGIC;
+           uart_s_axi_bvalid_in   : in STD_LOGIC;
            --write response ready signal to axi uartlite communication unit.
-           uart_s_axi_bready_out : out STD_LOGIC := '0';
+           uart_s_axi_bready_out  : out STD_LOGIC := '0';
            --read address to axi uartlite communication unit.
-           uart_s_axi_araddr_out : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0000";
+           uart_s_axi_araddr_out  : out STD_LOGIC_VECTOR(3 DOWNTO 0) := "0000";
            --read address valid signal to axi uartlite communication unit.
            uart_s_axi_arvalid_out : out STD_LOGIC := '0';
            --read address ready signal from axi uartlite communication unit.
            uart_s_axi_arready_in : in STD_LOGIC;
            --read data from axi uartlite communication unit.
-           uart_s_axi_rdata_in : in STD_LOGIC_VECTOR(31 DOWNTO 0);
+           uart_s_axi_rdata_in   : in STD_LOGIC_VECTOR(31 DOWNTO 0);
            --read data response from axi uartlite communication unit.
-           uart_s_axi_rresp_in : in STD_LOGIC_VECTOR(1 DOWNTO 0);
+           uart_s_axi_rresp_in   : in STD_LOGIC_VECTOR(1 DOWNTO 0);
            --read data valid signal from axi uartlite communication unit.
-           uart_s_axi_rvalid_in : in STD_LOGIC;
+           uart_s_axi_rvalid_in  : in STD_LOGIC;
            --read ready signal to axi uartlite communication unit.
            uart_s_axi_rready_out : out STD_LOGIC := '0');
 end uart_comm_unit;

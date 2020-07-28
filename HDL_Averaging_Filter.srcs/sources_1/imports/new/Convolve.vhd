@@ -8,7 +8,7 @@
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
+-- Description: This modules convolves the padded image ram data with a 3x3 kernel.
 -- 
 -- Dependencies: 
 -- 
@@ -33,18 +33,18 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity Convolution is
-    Generic (addr_bit_size : INTEGER := 9;   -- image has less than 1024 pixels.
-             data_bit_size : INTEGER := 7;   -- value range of a pixel (0-255) 
+    Generic (addr_bit_size  : INTEGER := 9;   -- image has less than 1024 pixels.
+             data_bit_size  : INTEGER := 7;   -- value range of a pixel (0-255) 
              total_bit_size : INTEGER :=11); -- addition of 9 pixel values (0-2295)
              
-    Port ( clk  : in STD_LOGIC; -- clock
-           rst_n :in STD_LOGIC; -- reset signal
+    Port ( clk            : in STD_LOGIC; -- clock
+           rst_n          : in STD_LOGIC; -- reset signal
            -- data in bus from the padded image ram.
-           data_a_in : in STD_LOGIC_VECTOR(data_bit_size DOWNTO 0);
+           data_a_in      : in STD_LOGIC_VECTOR(data_bit_size DOWNTO 0);
            -- data out bus to final output image ram.
-           data_a_out : out STD_LOGIC_VECTOR(data_bit_size DOWNTO 0) := std_logic_vector(to_unsigned(0, data_bit_size+1));
+           data_a_out     : out STD_LOGIC_VECTOR(data_bit_size DOWNTO 0) := std_logic_vector(to_unsigned(0, data_bit_size+1));
            -- address bus to the padded image ram (to read a pixel value).
-           read_addr_out : out STD_LOGIC_VECTOR(addr_bit_size DOWNTO 0) := std_logic_vector(to_unsigned(0, addr_bit_size+1)); 
+           read_addr_out  : out STD_LOGIC_VECTOR(addr_bit_size DOWNTO 0) := std_logic_vector(to_unsigned(0, addr_bit_size+1)); 
            -- address bus to the final output image ram (to write a pixel value). 
            write_addr_out : out STD_LOGIC_VECTOR(addr_bit_size DOWNTO 0) := std_logic_vector(to_unsigned(0, addr_bit_size+1));
            -- enable pin to the output ram (will be 1 when data_a_out is ready). 
@@ -52,9 +52,9 @@ entity Convolution is
            -- enable pin to the padded image ram. 
            write_en_p_out : out STD_LOGIC_VECTOR(0 DOWNTO 0) := "0";
            -- signal notifying the padding is done.
-           paddone_in : in STD_LOGIC;
+           paddone_in     : in STD_LOGIC;
            -- signal notifying the concolution is done.
-           convdone_out : out STD_LOGIC := '0');  
+           convdone_out   : out STD_LOGIC := '0');  
 end Convolution;
 
 architecture Behavioral of Convolution is
@@ -68,7 +68,7 @@ begin
      variable cur_col_v      : INTEGER := 1;     --column number
      variable ctrl_tick_v    : INTEGER := 0; -- variable to control teh first and last values
      variable total_v        : unsigned (total_bit_size downto 0) := "000000000000"; 
-     variable cur_pix_kern_v :INTEGER :=0; --current iteration of a single kernal*window (0-9)
+     variable cur_pix_kern_v : INTEGER :=0; --current iteration of a single kernal*window (0-9)
     begin
         if (rst_n = '0') then
             cur_opixel_v := 0;

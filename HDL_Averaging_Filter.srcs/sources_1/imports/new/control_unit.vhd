@@ -33,35 +33,35 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity control_unit is
-    Port ( clk : in STD_LOGIC;
-           rst_n : in STD_LOGIC;
+    Port ( clk                     : in STD_LOGIC;
+           rst_n                   : in STD_LOGIC;
            --signal from padding unit to indicate padding process completion.
-           padding_done_in : in STD_LOGIC;
+           padding_done_in         : in STD_LOGIC;
            --signal from convolution unit to indicate convolve process completion.
-           convolve_done_in : in STD_LOGIC;
+           convolve_done_in        : in STD_LOGIC;
            --signal from uart communication unit to indicate communication process completion.
-           comm_done_in : in STD_LOGIC;
+           comm_done_in            : in STD_LOGIC;
            --signal to start the image filtering process.
-           start_op_in : in STD_LOGIC;
+           start_op_in             : in STD_LOGIC;
            --signal that indicates completion of image filtering process.
-           finished_op_out : out STD_LOGIC := '0';
+           finished_op_out         : out STD_LOGIC := '0';
            --signal ram input mux to enable signal from padding unit to
            --reach memory elements.
-           enable_mux_padding_out : out STD_LOGIC := '0';
+           enable_mux_padding_out  : out STD_LOGIC := '0';
            --signal ram input mux to enable signal from convolution unit to
            --reach memory elements.
            enable_mux_convolve_out : out STD_LOGIC := '0';
            --signal ram input mux to enable signal from uart communication unit
            --to reach memory elements.
-           enable_mux_comm_out : out STD_LOGIC := '0';
+           enable_mux_comm_out     : out STD_LOGIC := '0';
            --signal to start the padding unit oprtation.
-           start_padding_out : out STD_LOGIC := '0';
+           start_padding_out       : out STD_LOGIC := '0';
            --signal to start the convolution unit oprtation.
-           start_convolve_out : out STD_LOGIC := '0';
+           start_convolve_out      : out STD_LOGIC := '0';
            --signal to start the uart communication unit oprtation.
-           start_comm_out : out STD_LOGIC := '0';
+           start_comm_out          : out STD_LOGIC := '0';
            --signal to select communication operation.(Send/Receive)
-           select_comm_op_out : out STD_LOGIC := '0');
+           select_comm_op_out      : out STD_LOGIC := '0');
 end control_unit;
 
 architecture Behavioral of control_unit is
