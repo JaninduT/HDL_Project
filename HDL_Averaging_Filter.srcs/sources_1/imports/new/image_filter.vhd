@@ -32,12 +32,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity image_filter is
-    Port ( clk          : in STD_LOGIC;
-           rst_n        : in STD_LOGIC;
-           start_in     : in STD_LOGIC;
-           rx           : in STD_LOGIC;
-           tx           : out STD_LOGIC;
-           finished_out : out STD_LOGIC);
+    Port ( clk                    : in STD_LOGIC;
+           main_rst_n             : in STD_LOGIC;
+           start_in               : in STD_LOGIC;
+           rx                     : in STD_LOGIC;
+           tx                     : out STD_LOGIC;
+           finished_out           : out STD_LOGIC;
+           main_convolve_led_out  : out STD_LOGIC;
+           main_padding_led_out   : out STD_LOGIC;
+           main_receiving_led_out : out STD_LOGIC;
+           main_sending_led_out   : out STD_LOGIC);
 end image_filter;
 
 architecture Behavioral of image_filter is
@@ -115,7 +119,11 @@ component control_unit is
            start_padding_out       : out STD_LOGIC;
            start_convolve_out      : out STD_LOGIC;
            start_comm_out          : out STD_LOGIC;
-           select_comm_op_out      : out STD_LOGIC);
+           select_comm_op_out      : out STD_LOGIC;
+           convolve_led_out        : out STD_LOGIC;
+           padding_led_out         : out STD_LOGIC;
+           receiving_led_out       : out STD_LOGIC;
+           sending_led_out       : out STD_LOGIC);
 end component;
 
 component ram_input_mux is
@@ -280,7 +288,7 @@ padded_image_ram_1_padi : padded_image_ram
 
 padding_unit_1_pu : padding_unit
     port map (clk            => clk,
-              rst_n          => rst_n,
+              rst_n          => main_rst_n,
               start_in       =>  start_padding_cu_to_pu,
               finished_out   => finished_pu_to_cu,
               ioi_wea_out    => ioi_wea_pu_to_mux,
@@ -296,7 +304,7 @@ padding_unit_1_pu : padding_unit
 convolution_unit_1_convu : Convolution
     port map(data_a_in      => douta_from_padi,
              clk            => clk,
-             rst_n          => rst_n,
+             rst_n          => main_rst_n,
              paddone_in     => start_convolve_cu_to_convu,
              data_a_out     => ioi_dina_convu_to_mux,
              write_en_a_out => ioi_wea_convu_to_mux,
@@ -306,8 +314,8 @@ convolution_unit_1_convu : Convolution
              convdone_out   => finished_convu_to_cu);
 
 control_unit_1_cu : control_unit
-    port map(clk => clk,
-             rst_n => rst_n,
+    port map(clk                     => clk,
+             rst_n                   => main_rst_n,
              padding_done_in         => finished_pu_to_cu,
              convolve_done_in        => finished_convu_to_cu,
              comm_done_in            => finished_comm_to_cu,
@@ -319,7 +327,11 @@ control_unit_1_cu : control_unit
              start_padding_out       => start_padding_cu_to_pu,
              start_convolve_out      => start_convolve_cu_to_convu,
              start_comm_out          => start_comm_cu_to_comm,
-             select_comm_op_out      => select_comm_op_cu_to_comm);
+             select_comm_op_out      => select_comm_op_cu_to_comm,
+             convolve_led_out        => main_convolve_led_out,
+             padding_led_out         => main_padding_led_out,
+             receiving_led_out       => main_receiving_led_out,
+             sending_led_out         => main_sending_led_out);
 
 ram_input_mux_1_mux : ram_input_mux
     port map (padding_en_in       => enable_mux_padding_cu_to_mux,
@@ -345,7 +357,7 @@ ram_input_mux_1_mux : ram_input_mux
 
 uart_communication_unit_1_comm : uart_comm_unit
     port map (clk                    => clk,
-              rst_n                  => rst_n,
+              rst_n                  => main_rst_n,
               start_op_in            => start_comm_cu_to_comm,
               finished_op_out        => finished_comm_to_cu,
               send_rec_select_in     => select_comm_op_cu_to_comm,
@@ -374,7 +386,7 @@ uart_communication_unit_1_comm : uart_comm_unit
 
 axi_uartlite_module_1_auu : axi_uartlite_unit
     port map (s_axi_aclk    => clk,
-              s_axi_aresetn => rst_n,
+              s_axi_aresetn => main_rst_n,
               interrupt     => interrupt_auu_to_comm,
               s_axi_awaddr  => s_axi_awaddr_comm_to_auu,
               s_axi_awvalid => s_axi_awvalid_comm_to_auu,

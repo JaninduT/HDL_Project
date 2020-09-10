@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-| Date         : Tue Jul 28 20:10:39 2020
+| Date         : Thu Sep 10 13:43:15 2020
 | Host         : DESKTOP-V5A9UPS running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file image_filter_control_sets_placed.rpt
 | Design       : image_filter
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    46 |
-|    Minimum number of control sets                        |    46 |
+| Total control sets                                       |    47 |
+|    Minimum number of control sets                        |    47 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |   113 |
+| Unused register locations in slices containing registers |   117 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,9 +39,9 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    46 |
+| Total control sets |    47 |
 | >= 0 to < 4        |     1 |
-| >= 4 to < 6        |     7 |
+| >= 4 to < 6        |     8 |
 | >= 6 to < 8        |     4 |
 | >= 8 to < 10       |    10 |
 | >= 10 to < 12      |     6 |
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              23 |           12 |
-| No           | No                    | Yes                    |              11 |           10 |
-| No           | Yes                   | No                     |              53 |           18 |
-| Yes          | No                    | No                     |             111 |           55 |
-| Yes          | No                    | Yes                    |             430 |          110 |
-| Yes          | Yes                   | No                     |              83 |           18 |
+| No           | No                    | No                     |              23 |           13 |
+| No           | No                    | Yes                    |              11 |            6 |
+| No           | Yes                   | No                     |              53 |           19 |
+| Yes          | No                    | No                     |             111 |           50 |
+| Yes          | No                    | Yes                    |             434 |          119 |
+| Yes          | Yes                   | No                     |              83 |           21 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -74,50 +74,51 @@ Table of Contents
 |  Clock Signal  |                                                Enable Signal                                                |                                                   Set/Reset Signal                                                   | Slice Load Count | Bel Load Count |
 +----------------+-------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------+----------------+
 |  clk_IBUF_BUFG | control_unit_1_cu/finished_op_out_i_1_n_0                                                                   | padding_unit_1_pu/AR[0]                                                                                              |                1 |              1 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_rx_sub_state0                                                            |                                                                                                                      |                2 |              4 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_set_cr_sub_state[3]_i_1_n_0                                              |                                                                                                                      |                1 |              4 |
-|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        |                                                                                                                      |                1 |              4 |
 |  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/start2                                      | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/I_DECODER/cs_ce_clr                                  |                1 |              4 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_tx_sub_state0                                                            |                                                                                                                      |                1 |              4 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/uart_s_axi_awaddr_out0                                                       |                                                                                                                      |                2 |              5 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/uart_s_axi_awaddr_out0                                                       | uart_communication_unit_1_comm/uart_s_axi_wdata_out[7]_i_1_n_0                                                       |                1 |              5 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_set_cr_sub_state[3]_i_1_n_0                                              |                                                                                                                      |                3 |              4 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_tx_sub_state0                                                            |                                                                                                                      |                2 |              4 |
+|  clk_IBUF_BUFG | control_unit_1_cu/convolve_led_out_i_1_n_0                                                                  | padding_unit_1_pu/AR[0]                                                                                              |                1 |              4 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/axi_rx_sub_state0                                                            |                                                                                                                      |                1 |              4 |
+|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        |                                                                                                                      |                2 |              4 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/uart_s_axi_awaddr_out0                                                       |                                                                                                                      |                3 |              5 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/uart_s_axi_awaddr_out0                                                       | uart_communication_unit_1_comm/uart_s_axi_wdata_out[7]_i_1_n_0                                                       |                2 |              5 |
 |  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_TX_I/SRL_FIFO_I/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/SS[0] |                2 |              6 |
 |  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/SRL_FIFO_I/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/SS[0] |                2 |              6 |
-|  clk_IBUF_BUFG | control_unit_1_cu/FSM_onehot_op_state[5]_i_1_n_0                                                            | padding_unit_1_pu/AR[0]                                                                                              |                3 |              6 |
-|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/SERIAL_TO_PARALLEL[8].fifo_din[8]_i_1_n_0                 |                1 |              7 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/ioi_dina_out[7]_i_1_n_0                                                      |                                                                                                                      |                3 |              8 |
-|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/SRL_FIFO_I/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/fifo_wr |                                                                                                                      |                1 |              8 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/bottom_left                                                                               | padding_unit_1_pu/AR[0]                                                                                              |                3 |              8 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/bottom_right                                                                              | padding_unit_1_pu/AR[0]                                                                                              |                1 |              8 |
-|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/I_DECODER/fifo_wr                           |                                                                                                                      |                1 |              8 |
+|  clk_IBUF_BUFG | control_unit_1_cu/FSM_onehot_op_state[5]_i_1_n_0                                                            | padding_unit_1_pu/AR[0]                                                                                              |                2 |              6 |
+|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/SERIAL_TO_PARALLEL[8].fifo_din[8]_i_1_n_0                 |                2 |              7 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/ioi_dina_out[7]_i_1_n_0                                                      |                                                                                                                      |                1 |              8 |
 |  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/s_axi_rresp_i                               | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/rst                                                  |                2 |              8 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/top_left[7]_i_1_n_0                                                                       | padding_unit_1_pu/AR[0]                                                                                              |                1 |              8 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/top_right[7]_i_1_n_0                                                                      | padding_unit_1_pu/AR[0]                                                                                              |                3 |              8 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/pix_data[7]_i_1_n_0                                                          | padding_unit_1_pu/AR[0]                                                                                              |                2 |              8 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/top_left[7]_i_1_n_0                                                                       | padding_unit_1_pu/AR[0]                                                                                              |                2 |              8 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/top_right[7]_i_1_n_0                                                                      | padding_unit_1_pu/AR[0]                                                                                              |                4 |              8 |
+|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/I_DECODER/fifo_wr                           |                                                                                                                      |                1 |              8 |
+|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/SRL_FIFO_I/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/fifo_wr |                                                                                                                      |                1 |              8 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/pix_data[7]_i_1_n_0                                                          | padding_unit_1_pu/AR[0]                                                                                              |                3 |              8 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/bottom_right                                                                              | padding_unit_1_pu/AR[0]                                                                                              |                2 |              8 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/bottom_left                                                                               | padding_unit_1_pu/AR[0]                                                                                              |                3 |              8 |
 |  clk_IBUF_BUFG | uart_communication_unit_1_comm/FSM_onehot_comm_state[8]_i_1_n_0                                             | padding_unit_1_pu/AR[0]                                                                                              |                3 |              9 |
-|  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/rst                                                  |                4 |             10 |
-|  clk_IBUF_BUFG | convolution_unit_1_convu/cur_opixel_v[0]_i_1_n_0                                                            | padding_unit_1_pu/AR[0]                                                                                              |                3 |             10 |
-|  clk_IBUF_BUFG | convolution_unit_1_convu/read_addr_out0                                                                     |                                                                                                                      |                8 |             10 |
+|  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/AXI_LITE_IPIF_I/I_SLAVE_ATTACHMENT/rst                                                  |                3 |             10 |
 |  clk_IBUF_BUFG | padding_unit_1_pu/ioi_addra_out0                                                                            |                                                                                                                      |                3 |             10 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/ioi_addra_out0                                                               |                                                                                                                      |                7 |             10 |
-|  clk_IBUF_BUFG |                                                                                                             | padding_unit_1_pu/AR[0]                                                                                              |               10 |             11 |
-|  clk_IBUF_BUFG | convolution_unit_1_convu/total_v[11]_i_1_n_0                                                                | padding_unit_1_pu/AR[0]                                                                                              |                4 |             12 |
-|  clk_IBUF_BUFG | convolution_unit_1_convu/write_addr_out0                                                                    |                                                                                                                      |                8 |             18 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/padi_addrb_out0                                                                           |                                                                                                                      |               11 |             18 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/ioi_addra_out0                                                               |                                                                                                                      |                4 |             10 |
+|  clk_IBUF_BUFG | convolution_unit_1_convu/cur_opixel_v[0]_i_1_n_0                                                            | padding_unit_1_pu/AR[0]                                                                                              |                3 |             10 |
+|  clk_IBUF_BUFG | convolution_unit_1_convu/read_addr_out0                                                                     |                                                                                                                      |                6 |             10 |
+|  clk_IBUF_BUFG |                                                                                                             | padding_unit_1_pu/AR[0]                                                                                              |                6 |             11 |
+|  clk_IBUF_BUFG | convolution_unit_1_convu/total_v[11]_i_1_n_0                                                                | padding_unit_1_pu/AR[0]                                                                                              |                3 |             12 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/padi_addrb_out0                                                                           |                                                                                                                      |                9 |             18 |
 |  clk_IBUF_BUFG | padding_unit_1_pu/padi_addra_out0                                                                           |                                                                                                                      |                8 |             18 |
-|  clk_IBUF_BUFG |                                                                                                             |                                                                                                                      |               12 |             23 |
-|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/rst_n                                                     |                5 |             28 |
+|  clk_IBUF_BUFG | convolution_unit_1_convu/write_addr_out0                                                                    |                                                                                                                      |                8 |             18 |
+|  clk_IBUF_BUFG |                                                                                                             |                                                                                                                      |               13 |             23 |
+|  clk_IBUF_BUFG | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/BAUD_RATE_I/p_11_out[0]                                        | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/main_rst_n                                                |                6 |             28 |
+|  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/main_rst_n                                                |               12 |             31 |
 |  clk_IBUF_BUFG | uart_communication_unit_1_comm/fetch_wait0                                                                  | uart_communication_unit_1_comm/fetch_wait[31]_i_1_n_0                                                                |                8 |             31 |
-|  clk_IBUF_BUFG |                                                                                                             | axi_uartlite_module_1_auu/U0/UARTLITE_CORE_I/UARTLITE_RX_I/rst_n                                                     |               10 |             31 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/corner[0]_i_1_n_0                                                                         | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/column                                                                                    | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
-|  clk_IBUF_BUFG | convolution_unit_1_convu/ctrl_tick_v[0]_i_1_n_0                                                             | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/wait_after_write                                                                          | padding_unit_1_pu/AR[0]                                                                                              |                7 |             32 |
-|  clk_IBUF_BUFG | control_unit_1_cu/cur_pix_kern_v                                                                            | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/mem_addra[31]_i_1_n_0                                                        | padding_unit_1_pu/AR[0]                                                                                              |                7 |             32 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/wait_to_read                                                                              | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/wait_after_write                                                                          | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
 |  clk_IBUF_BUFG | padding_unit_1_pu/row                                                                                       | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
-|  clk_IBUF_BUFG | padding_unit_1_pu/wait_to_read                                                                              | padding_unit_1_pu/AR[0]                                                                                              |                7 |             32 |
-|  clk_IBUF_BUFG | uart_communication_unit_1_comm/write_wait[31]_i_1_n_0                                                       | padding_unit_1_pu/AR[0]                                                                                              |                9 |             32 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/corner[0]_i_1_n_0                                                                         | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
+|  clk_IBUF_BUFG | control_unit_1_cu/cur_pix_kern_v                                                                            | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
+|  clk_IBUF_BUFG | padding_unit_1_pu/column                                                                                    | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/mem_addra[31]_i_1_n_0                                                        | padding_unit_1_pu/AR[0]                                                                                              |                7 |             32 |
+|  clk_IBUF_BUFG | uart_communication_unit_1_comm/write_wait[31]_i_1_n_0                                                       | padding_unit_1_pu/AR[0]                                                                                              |               13 |             32 |
+|  clk_IBUF_BUFG | convolution_unit_1_convu/ctrl_tick_v[0]_i_1_n_0                                                             | padding_unit_1_pu/AR[0]                                                                                              |                8 |             32 |
 |  clk_IBUF_BUFG | convolution_unit_1_convu/cur_col_v[0]_i_1_n_0                                                               | padding_unit_1_pu/AR[0]                                                                                              |               16 |             64 |
 +----------------+-------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------+----------------+
 

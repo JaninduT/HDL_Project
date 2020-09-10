@@ -51,7 +51,11 @@ component control_unit is
            start_padding_out : out STD_LOGIC := '0';
            start_convolve_out : out STD_LOGIC := '0';
            start_comm_out : out STD_LOGIC := '0';
-           select_comm_op_out : out STD_LOGIC := '0');
+           select_comm_op_out : out STD_LOGIC := '0';
+           convolve_led_out : out STD_LOGIC := '0';
+           padding_led_out : out STD_LOGIC := '0';
+           receiving_led_out : out STD_LOGIC := '0';
+           sending_led_out : out STD_LOGIC := '0');
 end component;
 
 signal clk : STD_LOGIC := '0';
@@ -68,6 +72,10 @@ signal start_padding_out : STD_LOGIC;
 signal start_convolve_out : STD_LOGIC;
 signal start_comm_out : STD_LOGIC;
 signal select_comm_op_out : STD_LOGIC;
+signal convolve_led_out : STD_LOGIC;
+signal padding_led_out : STD_LOGIC;
+signal receiving_led_out : STD_LOGIC;
+signal sending_led_out : STD_LOGIC;
 
 
 begin
@@ -86,7 +94,11 @@ uut1 : control_unit
              start_padding_out => start_padding_out,
              start_convolve_out => start_convolve_out,
              start_comm_out => start_comm_out,
-             select_comm_op_out => select_comm_op_out);
+             select_comm_op_out => select_comm_op_out,
+             receiving_led_out => receiving_led_out,
+             convolve_led_out => convolve_led_out,
+             padding_led_out => padding_led_out,
+             sending_led_out => sending_led_out);
 
 
 clk <= not clk after 5ns;

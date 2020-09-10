@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1595947195">
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1599725429">
   <File Type="BITSTR-BMM" Name="image_filter_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="image_filter_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="image_filter_timing_summary_init.rpt"/>
@@ -166,6 +166,14 @@
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
     <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/new/Basys3.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../HDL_Averaging_Filter_BoardTested.xpr/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/constrs_1/new/Basys3.xdc"/>
+        <Attr Name="ImportTime" Val="1599632478"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>

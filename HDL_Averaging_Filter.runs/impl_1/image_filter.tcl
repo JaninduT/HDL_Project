@@ -60,28 +60,26 @@ proc step_failed { step } {
   close $ch
 }
 
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 
 start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 3
-  set_param synth.incrementalSynthesisCache C:/Users/User/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-5124-DESKTOP-V5A9UPS/incrSyn
   create_project -in_memory -part xc7a35tcpg236-1
   set_property board_part digilentinc.com:basys3:part0:1.1 [current_project]
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.cache/wt [current_project]
-  set_property parent.project_path E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.xpr [current_project]
-  set_property ip_output_repo E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.cache/ip [current_project]
+  set_property webtalk.parent_dir E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.cache/wt [current_project]
+  set_property parent.project_path E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.xpr [current_project]
+  set_property ip_output_repo E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES XPM_MEMORY [current_project]
-  add_files -quiet E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.runs/synth_1/image_filter.dcp
-  read_ip -quiet E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/sources_1/ip/axi_uartlite_unit/axi_uartlite_unit.xci
-  read_ip -quiet E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/sources_1/ip/padded_image_ram/padded_image_ram.xci
-  read_ip -quiet E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.srcs/sources_1/ip/input_output_ram/input_output_ram.xci
+  add_files -quiet E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.runs/synth_1/image_filter.dcp
+  read_ip -quiet E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.srcs/sources_1/ip/axi_uartlite_unit/axi_uartlite_unit.xci
+  read_ip -quiet E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.srcs/sources_1/ip/padded_image_ram/padded_image_ram.xci
+  read_ip -quiet E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.srcs/sources_1/ip/input_output_ram/input_output_ram.xci
+  read_xdc E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.srcs/constrs_1/imports/new/Basys3.xdc
   link_design -top image_filter -part xc7a35tcpg236-1
   close_msg_db -file init_design.pb
 } RESULT]
@@ -170,6 +168,25 @@ if {$rc} {
   return -code error $RESULT
 } else {
   end_step route_design
+  unset ACTIVE_STEP 
+}
+
+start_step write_bitstream
+set ACTIVE_STEP write_bitstream
+set rc [catch {
+  create_msg_db write_bitstream.pb
+  set_property XPM_LIBRARIES XPM_MEMORY [current_project]
+  catch { write_mem_info -force image_filter.mmi }
+  write_bitstream -force image_filter.bit 
+  catch {write_debug_probes -quiet -force image_filter}
+  catch {file copy -force image_filter.ltx debug_nets.ltx}
+  close_msg_db -file write_bitstream.pb
+} RESULT]
+if {$rc} {
+  step_failed write_bitstream
+  return -code error $RESULT
+} else {
+  end_step write_bitstream
   unset ACTIVE_STEP 
 }
 

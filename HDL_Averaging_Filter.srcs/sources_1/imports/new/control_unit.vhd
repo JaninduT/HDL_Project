@@ -61,7 +61,15 @@ entity control_unit is
            --signal to start the uart communication unit oprtation.
            start_comm_out          : out STD_LOGIC := '0';
            --signal to select communication operation.(Send/Receive)
-           select_comm_op_out      : out STD_LOGIC := '0');
+           select_comm_op_out      : out STD_LOGIC := '0';
+           --signal progress of the convolution unit
+           convolve_led_out        : out STD_LOGIC := '0';
+           --signal progress of the padding unit
+           padding_led_out         : out STD_LOGIC := '0';
+           --signal progress of the receiving operation of UART Communication unit
+           receiving_led_out       : out STD_LOGIC := '0';
+           --signal progress of the sending operation of UART Communication unit
+           sending_led_out         : out STD_LOGIC := '0');
 end control_unit;
 
 architecture Behavioral of control_unit is
@@ -98,6 +106,10 @@ begin
                 start_convolve_out <= '0';
                 start_comm_out <= '0';
                 select_comm_op_out <= '0';
+                receiving_led_out <= '0';
+                convolve_led_out  <= '0';
+                padding_led_out  <= '0';
+                sending_led_out <= '0';
             elsif ( clk'event and clk = '1' ) then
                 case op_state is
                     when Idle =>
@@ -110,6 +122,10 @@ begin
                         enable_mux_padding_out <= '0';
                         enable_mux_convolve_out <= '0';
                         enable_mux_comm_out <= '0';
+                        receiving_led_out <= '0';
+                        convolve_led_out  <= '0';
+                        padding_led_out  <= '0';
+                        sending_led_out <= '0';
                         if ( start_op_in = '1' ) then
                             --with start signal, move to Data_Receive state,
                             --signal uart communication unit to start data
@@ -121,10 +137,18 @@ begin
                             enable_mux_padding_out <= '0';
                             enable_mux_convolve_out <= '0';
                             enable_mux_comm_out <= '1';
+                            receiving_led_out <= '0';
+                            convolve_led_out  <= '0';
+                            padding_led_out  <= '0';
+                            sending_led_out <= '0';
                         end if;
                     when Data_Receive =>
                         start_comm_out <= '0';
                         select_comm_op_out <= '0';
+                        receiving_led_out <= '1';
+                        convolve_led_out  <= '0';
+                        padding_led_out  <= '0';
+                        sending_led_out <= '0';  
                         if (comm_done_in = '1') then
                             --with comm_done signal, move to Padding state,
                             --signal padding unit to start and signal mux to
@@ -135,9 +159,17 @@ begin
                             enable_mux_padding_out <= '1';
                             enable_mux_convolve_out <= '0';
                             enable_mux_comm_out <= '0';
+                            receiving_led_out <= '1';
+                            convolve_led_out  <= '0';
+                            padding_led_out  <= '0';
+                            sending_led_out <= '0';                                                           
                         end if;
                     when Padding =>
                         start_padding_out <= '0';
+                        receiving_led_out <= '1';
+                        convolve_led_out  <= '0';
+                        padding_led_out  <= '1';
+                        sending_led_out <= '0';
                         if ( padding_done_in = '1' ) then
                             --with padding done signal, move to convlution 
                             --state, signal convolution unit to start and
@@ -148,8 +180,16 @@ begin
                             enable_mux_padding_out <= '0';
                             enable_mux_convolve_out <= '1';
                             enable_mux_comm_out <= '0';
+                            receiving_led_out <= '1';
+                            convolve_led_out  <= '0';
+                            padding_led_out  <= '1';
+                            sending_led_out <= '0';  
                         end if;
                     when Convolving =>
+                        receiving_led_out <= '1';
+                        convolve_led_out  <= '1';
+                        padding_led_out  <= '1';
+                        sending_led_out <= '0';
                         if ( convolve_done_in = '1' ) then
                             --with convolution done signal, move to Data_Sending 
                             --state. Signal uart communication unit to start data
@@ -162,21 +202,37 @@ begin
                             enable_mux_padding_out <= '0';
                             enable_mux_convolve_out <= '0';
                             enable_mux_comm_out <= '1';
+                            receiving_led_out <= '1';
+                            convolve_led_out  <= '1';
+                            padding_led_out  <= '1';
+                            sending_led_out <= '0';                             
                         end if;
                     when Data_Sending =>
                         start_comm_out <= '0';
                         select_comm_op_out <= '0';
+                        receiving_led_out <= '1';
+                        convolve_led_out  <= '1';
+                        padding_led_out  <= '1';
+                        sending_led_out <= '1';
                         if (comm_done_in = '1') then
                             --With comm_done signal, move to Finished state.
                             op_state <= Finished;
                             enable_mux_padding_out <= '0';
                             enable_mux_convolve_out <= '0';
                             enable_mux_comm_out <= '0';
+                            receiving_led_out <= '1';
+                            convolve_led_out  <= '1';
+                            padding_led_out  <= '1';
+                            sending_led_out <= '1';
                         end if;
                     when Finished =>
                         --in finished state, signal the operation finish
                         --and move to Idel state.
                         finished_op_out <= '1';
+                        receiving_led_out <= '1';
+                        convolve_led_out  <= '1';
+                        padding_led_out  <= '1';
+                        sending_led_out <= '1';
                         op_state <= Idle;
                     when others =>
                         op_state <= Idle;

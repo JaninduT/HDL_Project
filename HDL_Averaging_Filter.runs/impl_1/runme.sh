@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='E:/Academic/HDL/HDL_Averaging_Filter/HDL_Averaging_Filter.runs/impl_1'
+HD_PWD='E:/Academic/HDL/HDL_Project/HDL_Averaging_Filter.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
